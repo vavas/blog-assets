@@ -66,8 +66,8 @@ After watching that (**excellent**) course, you can use this checklist to quickl
   ```
 
 - **PROTIPs**:
-  - Install and save modules: `npm i -S module-name` is equal to `npm install --save module-name`
-  - Install and save dependency modules: `npm i -D module-name` is equal to `npm install --save-dev module-name`
+  - Install and save dependencies: `npm i -S module-name` is equal to `npm install --save module-name`
+  - Install and save development dependencies: `npm i -D module-name` is equal to `npm install --save-dev module-name`
 
 - **Add a .gitignore file**
 

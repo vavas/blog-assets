@@ -15,9 +15,9 @@ After watching that (**excellent**) course, you can use this checklist to quickl
 ## Checklist
 
 - **Prefer to write a micro-library**. Benefits:
-  - More easy to reason about
-  - More easy to test
-  - More easy to reuse
+  - easier to reason about
+  - easier to test
+  - easier to reuse
 
 - **Create a repository for your libray**:
   - Go to your git repository hosting service (here we'll use [GitHub](https://github.com/))

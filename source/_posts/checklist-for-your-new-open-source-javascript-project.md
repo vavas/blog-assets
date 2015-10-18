@@ -147,6 +147,8 @@ After watching that (**excellent**) course, you can use this checklist to quickl
     ```sh
     npm install cz-conventional-changelog@1.0.1 -D
     ```
+  - **ps2**: Commitizen (and cz-conventional-changelog) [updated](http://ericdouglas.github.io/2015/09/27/checklist-for-your-new-open-source-javascript-project/#comment-2312712674)! :)
+
   - Using commitizen:
     - Add your changes `git add`
     - `npm run commit`

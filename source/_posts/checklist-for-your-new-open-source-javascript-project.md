@@ -19,7 +19,7 @@ After watching that (**excellent**) course, you can use this checklist to quickl
   - easier to test
   - easier to reuse
 
-- **Create a repository for your libray**:
+- **Create a repository for your library**:
   - Go to your git repository hosting service (here we'll use [GitHub](https://github.com/))
   - Create a new repository
   - Create a README file

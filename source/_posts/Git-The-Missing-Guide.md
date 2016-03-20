@@ -9,8 +9,8 @@ Such knowledge will really **boost** your workflow and have a **big impact** in 
 
 ## Table of Contents
 
-- [References]()
-- [About Git]()
+- [References](#References)
+- [About Git](#About-Git)
 - [Installation]()
 - [Starting with Git]()
 - [Commit Structure]()
@@ -34,3 +34,10 @@ Other relevant resources are: [A successful Git branching model](http://nvie.com
 **Fasten your seatbelt and let's get started!**
 
 ## About Git
+
+- Git was created by [Linus Torvalds](https://en.wikipedia.org/wiki/Linus_Torvalds) to help him handle the creation of the Linux Kernel.
+- **Efficient**: has good algorithms to handle all the versioning system, keeping the files really small and the operations very fast.
+- **Secure** uses SHA1 to recognize commits. It's almost impossible losing data using git.
+- Is a distributed system based in **snapshots**.
+
+## Installation

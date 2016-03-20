@@ -11,8 +11,8 @@ Such knowledge will really **boost** your workflow and have a **big impact** in 
 
 - [References](#References)
 - [About Git](#About-Git)
-- [Installation]()
-- [Starting with Git]()
+- [Installation](#Installation)
+- [Starting with Git](#Starting-with-Git)
 - [Commit Structure]()
 - [Managing the index]()
 - [Stashes and branches]()
@@ -41,3 +41,9 @@ Other relevant resources are: [A successful Git branching model](http://nvie.com
 - Is a distributed system based in **snapshots**.
 
 ## Installation
+
+Just go to the [downloads](https://git-scm.com/downloads) page on Git official website and follow the instructions for your respective operating system.
+
+=)
+
+## Starting with Git

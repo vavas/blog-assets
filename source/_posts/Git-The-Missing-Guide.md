@@ -3,6 +3,8 @@ date: 2016-03-20 11:29:01
 tags: git
 ---
 
+![Git](http://i.imgur.com/QRZsSQI.jpg)
+
 In this article you'll get a *synthesized* list of **important** and **useful** *concepts*, *commands* and *workflow* to work **professionally** with [`git`](https://git-scm.com/), this awesome *version control system*.
 
 Such knowledge will really **boost** your workflow and have a **big impact** in your *development cycle*, and of your team too.

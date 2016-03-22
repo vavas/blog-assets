@@ -49,3 +49,51 @@ Just go to the [downloads](https://git-scm.com/downloads) page on Git official w
 =)
 
 ## Starting with Git
+
+After you install the git on your machine, you need to setup your identity to be recognized as the author of the commits that will be done.
+
+First, let's setup your `email` and your `name`. Open your terminal and type:
+
+```sh
+git config --global user.name "Your Name"
+git config --global user.email "youremail@example.com"
+```
+
+**Important**: This e-mail will be public when you send a commit to GitHub, for example. If you don't want to make public your e-mail, put another one in this place.
+
+All of your configuration will be saved in the `.gitconfig` file.
+
+```sh
+cat ~/.gitconfig
+
+[user]
+    email = youremail@example.com
+    name = Your Name
+```
+
+> **PROTIP**: instead of use the command `clear` to clear your terminal, press the keys `Ctrl + L`.
+
+Another interesting configuration is [colorize the output of git](http://unix.stackexchange.com/a/44283).
+
+It's also helpful to know how to change the default editor that git will use to edit our commit and tag messages. To change the default editor, use the following command:
+
+```sh
+git config --global core.editor vim
+```
+
+For more information about configuration, you can read this resource: [Customizing Git - Git Configuration](https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration).
+
+### Initial Project
+
+In this tutorial we'll use a language agnostic example. I'll show to you how to use git by versioning simple text files, but you will be able to use what you learned with any type of file. 
+
+You'll understand how easy, powerful and useful this amazing tool is!
+
+Let's create a folder called `tasks`, and two simple text files called `todo.txt` and `calendar.txt`.
+
+```sh
+mkdir tasks && cd $_
+touch {todo.txt,calendar.txt}
+```
+
+

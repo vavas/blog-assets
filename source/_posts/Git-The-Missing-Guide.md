@@ -20,7 +20,11 @@ tags: git
 ## Commit Structure
 
 - `git status` (`gst`): See the project status
-- Working areas: **.git directory**, **staging area** and **working directory**. [Image](https://i.imgur.com/B0w11nb.png)
+- Working areas: 
+	- **.git directory**, 
+	- **staging area**
+	- **working directory**
+![Illustration of the working areas](https://i.imgur.com/B0w11nb.png)
 - `git add <filename>` (`ga`): Add a file to the Staging Area
 - `git add .` (`gaa`): Add all files to the Staging Area
 - `git add *.js`: Add all `.js` files to the Staging Area
@@ -48,13 +52,13 @@ tags: git
 	- `--hard`: Any changes to tracked files in the working tree since <commit> are discarded.
 - `git reflog`: show all commits that were "deleted"
 - `git merge <commit hash>`: restore the commit
-- **`git add -i` (`ga -i`): Open an interactive way to add files. REALLY USEFUL!**
-	- ps: use with the *4: add untracked* option to add files quickly
-	- 1 <enter>: Add file 1
-	- 1,3 <enter>: Add files 1 and 3
-	- 1-5 <enter>: Add files 1, 2, 3, 4 and 5
-	- -2 <enter>: Remove the file 2
-	- -2-4 <enter>: Remove files 2, 3 and 4
+- **`git add -i` (`ga -i`): Open an interactive mode. REALLY USEFUL!**
+	- **obs**: use with the *4: add untracked* option to `git add` files quickly
+	- `1 <enter>`: Selects file 1 to be added to the Staging area
+	- `1,3 <enter>`: Selects files 1 and 3 to be added to the Staging area
+	- `1-5 <enter>`: Selects files 1, to 5 to be added to the Staging area
+	- `-2 <enter>`: Deselects file 2 to be added to the Staging area
+	- `-2-4 <enter>`: Deselects files 2 to 4 to be added to the Staging area
 - `git clean -f`: Remove (delete) untracked files from the working tree
 
 ## Stashes and Branches

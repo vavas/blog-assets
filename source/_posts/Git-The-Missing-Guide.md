@@ -63,6 +63,8 @@ tags: git
 
 ## Stashes and Branches
 
+### Stash
+
 - `git stash` (`gsta`): Remove all files in the Staging Area to the *"Stash Area"*, that works as another type of *Working Area*.
 - `git stash list`: Show a list with all stashes.
 - `git stash apply`: Return all files from the last created stash to the Staging Area.
@@ -72,3 +74,13 @@ tags: git
 - `git stash save "name of the stash"`: Save a new stash with a particular name.
 - `git stash pop` (`gstp`): Return all files from the last created stash to the Staging Area and remove the stash from the list.
 - `git stash drop` (`gstd`): Remove the last created stash (`stash@{0}`) from the list. **Be careful!**
+- `git stash drop stash@{2}`: Remove the `stash@{2}` stash from the list. **Be careful!**
+
+### Branch
+
+- `git checkout -b develop` (`gco`): Create a new branch called *develop* and change from the current branch to the *develop* branch.
+- `git branch` (`gb`): List all branches.
+- `git checkout master` (`gcm`): Switch for the `master` branch.
+- `git merge <branch>` (`gm`): Merge a branch into another.
+- `gitk --all &`: Open a GUI to visualize your branches and commits.
+	- You can test [GitKraken](http://www.gitkraken.com/) too :)

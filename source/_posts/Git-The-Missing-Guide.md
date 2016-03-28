@@ -84,3 +84,16 @@ tags: git
 - `git merge <branch>` (`gm`): Merge a branch into another.
 - `gitk --all &`: Open a GUI to visualize your branches and commits.
 	- You can test [GitKraken](http://www.gitkraken.com/) too :)
+- `git rebase master`: Add the modifications from the `master` branch into the current branch and add move the alterations in the current branch to the top of what was added. *"...rewinding head to replay your work on top of it"*
+- `git branch -d <branch>`: delete a branch
+  - `-D`: force to delete a branch
+- **PROTIP**: one branch for each functionality or bugfix
+- `git merge <branch> --squash`: Concat several commits into one
+  - `--squash` workflow:  
+    1. Go to the `master` branch: `git checkout master`
+    1. Create a `temp` branch: `git checkout -b temp`
+    1. Merge the `feature-x` branch into the `temp` using `--squash`: `git merge feature-x --squash`
+    1. See the new modifications/files in the Staging Area: `git status`
+    1. Create the unified commit: `git commit -m "Add feature x"`
+    1. Delete the `feature-x` branch: `git branch -D feature-x`
+

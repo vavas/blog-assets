@@ -5,6 +5,8 @@ tags: git
 
 ![git](http://i.imgur.com/QRZsSQI.jpg)
 
+The intention of this article is to be a helpful reminder for those that use git to manage their projects.
+
 ## Table of Contents
 
 - [Basic Commands](#Basic-Commands)
@@ -12,6 +14,9 @@ tags: git
 - [Managing the Staging Area](#Managing-the-Staging-Area)
 - [Stashes and Branches](#Stashes-and-Branches)
 - [Managing a Remote Repository](#Managing-a-Remote-Repository)
+- [More Useful Commands](#More-Useful-Commands)
+- [Git Worflow](#Git-Workflow)
+- [References](#References)
 
 ## Basic Commands
 
@@ -117,3 +122,20 @@ tags: git
 - `git fetch <remote> <remote-branch>` (`gfa`): Fetch new commits from a remote repository into a special branch `<remote>/<branch>`.
 - `git pull <remote> <remote-branch>` (`gl`, `ggl`): Incorporates changes from a remote repository into the current branch. In its default mode, git pull is shorthand for git fetch followed by git merge.
   - `git pull --rebase` (`gup`): Runs `git rebase` instead of `git merge`.
+
+## More Useful Commands
+
+- `git tag <name>`: Create a new tag (*e.g.* `v1.3`).
+- `git push --tags`: Push all tags to the remote repository.
+- `git push <tag>`: Push a specific tag to the remote repository.
+
+## Git Workflow
+
+![git workflow](http://i.imgur.com/F9vilJE.png)
+
+## References
+
+- [Começando com git](http://www.akitaonrails.com/2010/08/17/screencast-comecando-com-git) `pt-br`
+- [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
+- [Comparing workflows](https://www.atlassian.com/git/tutorials/comparing-workflows/)
+- [More resources](https://github.com/ericdouglas/dev-log/blob/master/source/git.md)

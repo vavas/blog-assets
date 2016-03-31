@@ -11,6 +11,7 @@ tags: git
 - [Commit Structure](#Commit-Structure)
 - [Managing the Staging Area](#Managing-the-Staging-Area)
 - [Stashes and Branches](#Stashes-and-Branches)
+- [Managing a Remote Repository](#Managing-a-Remote-Repository)
 
 ## Basic Commands
 
@@ -87,6 +88,7 @@ tags: git
 - `gitk --all &`: Open a GUI to visualize your branches and commits.
 	- You can test [GitKraken](http://www.gitkraken.com/) too :)
 - `git rebase master`: Add the modifications from the `master` branch into the current branch and add move the alterations in the current branch to the top of what was added. *"...rewinding head to replay your work on top of it"*
+  - `git rebase --continue`: after resolve conflicts
 - `git branch -d <branch>`: delete a branch
   - `-D`: force to delete a branch
 - **PROTIP**: one branch for each functionality or bugfix. There is no problem in create lots of branches!
@@ -106,3 +108,12 @@ tags: git
   - **merge**:
     - useful for keeping the forking history;
     - creates a new commit to unify two branches.
+
+## Managing a Remote Repository
+
+- `git remote add <name> <url>`: Add a new remote repository that will be tracked.
+- `git remote rm <name>`: Remove a remote repository.
+- `git push <remote> <remote-branch>` (`gp`, `ggp`): Push local commits to a remote repository in the specified branch.
+- `git fetch <remote> <remote-branch>` (`gfa`): Fetch new commits from a remote repository into a special branch `<remote>/<branch>`.
+- `git pull <remote> <remote-branch>` (`gl`, `ggl`): Incorporates changes from a remote repository into the current branch. In its default mode, git pull is shorthand for git fetch followed by git merge.
+  - `git pull --rebase` (`gup`): Runs `git rebase` instead of `git merge`.

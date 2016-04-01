@@ -98,7 +98,7 @@ The intention of this article is to be a helpful reminder for those that use git
   - `-D`: force to delete a branch
 - **PROTIP**: one branch for each functionality or bugfix. There is no problem in create lots of branches!
 - `git merge <branch> --squash`: Concat several commits into one
-  - `--squash` workflow:  
+  - **`--squash` workflow**:
     1. Go to the `master` branch: `git checkout master`
     1. Create a `temp` branch: `git checkout -b temp`
     1. Merge the `feature/x` branch into the `temp` using `--squash`: `git merge feature/x --squash`
@@ -133,9 +133,84 @@ The intention of this article is to be a helpful reminder for those that use git
 
 ![git workflow](http://i.imgur.com/F9vilJE.png)
 
+- Types of branches: `master`, `develop`, `feature`, `release`, `hotfix`
+- **MAIN BRANCHES** 
+  - **`master` branch**:
+    - `origin/master`: always reflects a *production-ready* state.
+  - **`develop` branch**:
+    - `origin/develop`: always reflects a state with the latest delivered development changes for the next release.
+- **SUPPORTING BRANCHES** 
+  - **`feature` branch**:
+    - Comes from: `develop`.
+    - Merge into: `develop`.
+    - Name convention: `feature/feature-name`.
+    - Create the branch: 
+      ```sh
+      git checkout -b feature/my-feature develop
+      ```
+    - Merge the branch (finishing the `feature` branch):
+    ```sh
+    git checkout develop
+    git merge --no-ff feature/my-feature
+    git branch -d feature/my-feature
+    git push origin develop
+    ```
+    - The `--no-ff` flag causes the merge to always create a new commit object. This avoids losing information about the historical existence of a feature branch and groups together all commits that together added the feature. 
+  - **`release` branch**:
+    - Comes from: `develop`.
+    - Merge into: `develop` **and** `master`.
+    - Name convention: `release/release-v1.3`.
+    - Create the branch: 
+      ```sh
+      git checkout -b release/release-v1.3 develop
+      # Bump your software version to v1.3
+      git commit -a -m "Bumped version number to v1.3"
+      ```
+    - Merge the branch (finishing the `release` branch):
+    ```sh
+    # Merge into master
+    git checkout master
+    git merge --no-ff release/release-v1.3
+    git tag -a v1.3
+    git push origin master && git push --tags
+
+    # Merge into develop
+    git checkout develop
+    git merge --no-ff release/release-v1.3
+
+    git branch -d release/release-v1.3
+    ```
+  - **`hotfix` branch**:
+    - Comes from: `master`.
+    - Merge into: `develop` **and** `master`.
+    - Name convention: `hotfix/hotfix-v1.3.1`.
+    - Create the branch: 
+      ```sh
+      git checkout -b hotfix/hotfix-v1.3.1 develop
+      # Bump your software version to v1.3.1
+      git commit -a -m "Bumped version number to v1.3.1"
+      # After fix the bug
+      git commit -m "Fixed severe production problem"
+      ```
+    - Merge the branch (finishing the `hotfix` branch):
+    ```sh
+    # Merge into master
+    git checkout master
+    git merge --no-ff hotfix/hotfix-v1.3.1
+    git tag -a v1.3.1
+    git push origin master && git push --tags
+
+    # Merge into develop
+    git checkout develop
+    git merge --no-ff hotfix/hotfix-v1.3.1
+
+    git branch -d hotfix/hotfix-v1.3.1
+    ```
+
 ## References
 
 - [Começando com git](http://www.akitaonrails.com/2010/08/17/screencast-comecando-com-git) `pt-br`
 - [A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 - [Comparing workflows](https://www.atlassian.com/git/tutorials/comparing-workflows/)
+- [git-flow cheatsheet](http://danielkummer.github.io/git-flow-cheatsheet/)
 - [More resources](https://github.com/ericdouglas/dev-log/blob/master/source/git.md)

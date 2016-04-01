@@ -233,4 +233,4 @@ In front of the git commands, you'll see some aliases from the [oh-my-zsh cheats
 - [Resources to learn git](https://github.com/open-source-society/computer-science#prerequisite)
 - [More resources](https://github.com/ericdouglas/dev-log/blob/master/source/git.md)
 
-> If you found something wrong, you can contribute to this article [here](https://github.com/ericdouglas/blog-assets/blob/0c9b0309ec8640db403548388c4f5f7477c08a54/source/_posts/Git-The-Missing-Guide.md).
+> If you found something wrong, you can contribute to this article [here](https://github.com/ericdouglas/blog-assets/blob/master/source/_posts/Git-Useful-Tips.md).

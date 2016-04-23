@@ -28,7 +28,8 @@ In front of the git commands, you'll see some aliases from the [oh-my-zsh cheats
 
 - `git config --global user.name "Your Name"`
 - `git config --global user.email "youremail@example.com"`
-- `git config --global core.editor vim`
+- `git config --global core.editor <your favorite editor here>`
+  - Ex: `git config --global core.editor vim`
 - `git init`: Start a new git repository.
 
 ## Commit Structure

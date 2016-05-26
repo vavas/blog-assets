@@ -21,7 +21,7 @@ In front of the git commands, you'll see some aliases from the [oh-my-zsh cheats
 - [Stashes and Branches](#Stashes-and-Branches)
 - [Managing a Remote Repository](#Managing-a-Remote-Repository)
 - [More Useful Commands](#More-Useful-Commands)
-- [Git Worflow](#Git-Workflow)
+- [Git Workflow](#Git-Workflow)
 - [References](#References)
 
 ## Basic Commands

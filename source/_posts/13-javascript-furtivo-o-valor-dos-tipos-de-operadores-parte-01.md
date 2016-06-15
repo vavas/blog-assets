@@ -50,7 +50,24 @@ Ah, já ia me esquecendo... **Digite TODO o código, não copie apenas!!! Isso s
 >
 > Vamos utilizar o console diretamente apenas para códigos curtos, pois para códigos maiores, iremos rodá-los através de nossa página html, e ai o comando `console.log()` será de grande utilidade.
 
-<div data-gist-id="10434613" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+/* verificação de tipos primitivos */
+typeof 13 // tipo number
+// -> "number"
+typeof "javascript furtivo" // tipo string
+// -> "string"
+typeof true // tipo boolean
+// -> "boolean"
+
+/* tipos primitivos especiais */
+var semValor = null; // tipo null
+typeof semValor
+// -> "object" 
+
+var semAtribuir; // tipo undefined
+typeof semAtribuir
+// -> "undefined"
+```
 
 Olhando o código acima, mais precisamente na parte de *tipos primitivos especiais*, você pode perceber que o *tipo* `null` na verdade é um `object`. Bom, mas por que isso?
 
@@ -58,7 +75,29 @@ Essa peculiaridade do JavaScript na verdade é um *erro* dos primóridios da lin
 
 Vamos ver agora no nosso console os tipos existentes de objetos.
 
-<div data-gist-id="10564803" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+/* Tipos de Objeto */
+
+// objeto do tipo array (vetor)
+var guitarras = [ 'ibanez', 'music man', 'suhr' ];
+typeof guitarras; // -> "object"
+
+// objeto do tipo function
+var soma = function( valor1, valor2 ) { return valor1 + valor2; }
+typeof soma; // -> "function"
+
+// objeto do tipo Date
+var agora = new Date();
+typeof agora; // -> "object"
+
+// objeto do tipo RegExp
+var minhaRegExp = /padrao/;
+typeof minhaRegExp; // -> "object"
+
+// objeto do tipo Error
+var perigo = new Error( 'Alguma coisa deu errado!' );
+typeof perigo; // -> "object"
+```
 
 Muito bom! Agora já conhecemos **todos** os tipos de dados do JavaScript! Você pode parar um pouco para respirar e beber uma água, pois a partir de agora iremos aprofundar um pouco em cada *tipo primitivo de dados* que acabamos de ver. Os *tipos de objetos* são mais complexos, e por isso cada um terá um artigo próprio (no mínimo)...
 
@@ -86,7 +125,17 @@ Temos os 4 operadores matemáticos básicos representados no JavaScript da segui
 
 Agora que já conhecemos os números e operadores, vamos brincar um pouco no console. Digite as operações abaixo e confira se o resultado é o mesmo do indicado no comentário.
 
-<div data-gist-id="10758049" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+1.3 + 1.8 // -> 3.1
+
+1.3 - 1.17 // -> 0.13000000000000012 
+
+1.3 * 10 // -> 13
+
+13 / 2 // -> 6.5
+
+13 % 2 // -> 1
+```
 
 <h2><a id="numeros-especiais">Números Especiais</a></h2>
 
@@ -94,13 +143,27 @@ Temos três tipos de números que não se comportam como números. `Infinity`, `
 
 Vamos ver como surgem estes números! De volta ao console! =)
 
-<div data-gist-id="10761538" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+// criando um número através do objeto Number
+var test = Number( 'treze' ); 
+test // -> NaN
+typeof test // -> "number"
+
+13 / 0 // -> Infinity
+
+-13 / 0 // -> -Infinity
+```
 
 **ps**: Uma particularidade do `NaN` é que ele é o único valor em JavaScript que **não é** igual a ele mesmo. Como verificar isso? A **melhor** forma para saber se uma variável está com valor `NaN` é testando se ela é igual a ela mesmo (ou diferente).
 
 Se você comparar a variável `A` com ela mesmo e o resultado for `false`, logo, `A` é igual a `NaN`. Vamos dar uma olhada mais de perto:
 
-<div data-gist-id="10764201" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var A = NaN;
+
+A == A; // -> false
+A != A; // -> true
+```
 
 Você poderia também verificar se uma variável está com o valor `NaN` usando o método `isNaN()`, porém o mesmo apresenta alguns comportamentos inesperados por fazer coerção dos valores para o tipo *number*. Veja mais [aqui](https://gist.github.com/kitcambridge/1086528).
 
@@ -119,7 +182,32 @@ Para fazer o *escape* dos caracteres especiais, utilizamos o símbolo da barra i
 
 Vamos praticar um pouco essa "teoria das cordas".
 
-<div data-gist-id="10772969" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var 
+  frase01 = 'Este é o parágrafo inicial...',
+  frase02 = "... complementado por este trecho.",
+  frase03 = '\nA partir daqui começa a ficar interessante...',
+  frase04 = '\tagora com tabulação, e \'aspas\' também',
+  texto = frase01 + frase02 + frase03 + frase04;
+
+texto;
+/*
+-> "Este é o parágrafo inicial...... complementado por este trecho.
+A partir daqui começa a ficar interessante...	agora com tabulação, e 'aspas' também"
+*/
+
+// Para escrever o mesmo texto acima como 
+// uma sentença única, faríamos assim:
+var texto2 = 'Este é o parágrafo inicial...\
+... complementado por este trecho.\
+\nA partir daqui começa a ficar interessante...\
+\tagora com tabulação, e \'aspas\' também';
+
+texto2;
+
+-> "Este é o parágrafo inicial...... complementado por este trecho.
+A partir daqui começa a ficar interessante...	agora com tabulação, e 'aspas' também"
+```
 
 **ps**:O caracter `\` quando colocado no fim da linha, permite que você continue a string de outra linha. Isso é útil para formatação do código, melhorando a sua legibilidade. Use a forma que for mais conveniente e agradável para você.
 

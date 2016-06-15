@@ -63,11 +63,25 @@ Todos os outros valores em JavaScript são considerados *truthy* (verdadeiros). 
 <h2><a id="truques-com-o-operador-de-negacao">Truques com o Operador `!`</a></h2>
 Agora que sabemos **exatamente** quais valores booleanos cada valor do JavaScript carrega, podemos tranquilamente e **conscientemente** utilizar o operador `!` para obter o valor **contrário** do natural do valor em operação. Vamos aos exemplos, e portanto, **ao console**!:
 
-<div data-gist-id="10958488" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+!false         // -> true
+!0             // -> true
+!""            // -> true
+!NaN           // -> true
+!"0"           // -> false
+!"false"       // -> false
+!function() {} // -> false
+!{}            // -> false
+```
 
 Um modo interessante de saber qual é o valor *truthy* ou *falsy* de um valor é negando-o duas vezes com o operador `!`. Sim, é como na Matemática, `-1 x -1 = 1`. Então temos que:
 
-<div data-gist-id="10958548" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+!!false         // -> false
+!!NaN           // -> false
+!!{}            // -> true
+!!function() {} // -> true
+```
 
 <h2><a id="cuidado-com-a-falsidade">Cuidado com a Falsidade!</a></h2>
 
@@ -81,13 +95,23 @@ Quando comparamos dois destes três valores utilizando o operador `==`, o result
 
 > **OBS**: Quando utilizamos o console, podemos omitir o sinal `;` (ponto e vírgula) no fim das expressões, pois estamos fazendo apenas um **teste rápido**, porém no seu código JavaScript de fato, **sempre utilize o ponto e vírgula**!!!
 
-<div data-gist-id="10979318" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+false == 0  // -> true
+false == "" // -> true
+0     == "" // -> true
+```
 
 ### `null` e `undefined`
 
 Os valores `null` e `undefined` somente são equivalentes a eles mesmos. Vejamos:
 
-<div data-gist-id="10980063" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+null == false          // -> false
+null == null           // -> true
+undefined == false     // -> false
+undefined == undefined // -> true
+undefined == null      // -> true
+```
 
 O último valor falsy que temos para citar é o `NaN`, porém este já foi abordado no artigo anterior, e sabemos que é o **único** tipo de dado em JavaScript que não é igual a ele mesmo.
 
@@ -126,7 +150,15 @@ Uma última informação. Estes operadores podem ser utilizados **antes** ou **d
 
 Vamos aos testes!
 
-<div data-gist-id="11039924" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var total = 0;
+total++ // -> 0 (valor foi alterado, mas será percebido na próxima operação)
+total   // -> 1
+++total // -> 2
+--total // -> 1
+total-- // -> 1
+total   // -> 0
+```
 
 ### Incrementando Números e Strings
 
@@ -134,7 +166,31 @@ Estes operadores serão utilizados **sempre** por você! São realmente MUITO im
 
 Vamos dar uma olhada como estes operadores trabalham. `#partiuconsole`
 
-<div data-gist-id="11041498" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+// somando números
+var resultado = 7
+resultado += 6 // -> 13
+
+// concatenando strings
+var meuNome = 'Eric'
+meuNome += ' Douglas' // -> "Eric Douglas"
+
+// subtraindo números
+resultado -= 6 // -> 7
+
+// multiplicando números
+resultado *= 3 // -> 21
+
+// dividindo números
+resultado /= 2 // -> 10.5
+
+// resto da divisão de números
+resultado %= 2 // -> 0.5
+
+// um exemplo de como somar na mesma variável
+// sem usar estes operadores
+resultado = resultado + 0.8 // -> 1.3
+```
 
 <h2><a id="operadores-de-comparacao">Operadores de Comparação</a></h2>
 
@@ -153,7 +209,17 @@ A maneira de comparar strings pode não ser muito intuitiva, pois qualquer letra
 
 Vamos confirmar toda essa teoria agora. Já sabé né? Console! =)
 
-<div data-gist-id="11043904" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+13 < 26 // -> true
+
+'treze' < 'Vinte seis' // -> false *preste atenção aqui*
+
+var treze = 13
+treze <= 13 // -> true
+
+26 > 13 // -> true
+'vinte seis' > 'Treze' // -> true
+```
 
 ### Comparadores de Igualdade
 
@@ -168,7 +234,13 @@ A grande diferença entre um operador e outro é que a primeira dupla (`==` e `!
 
 Irei explicar sobre coerção de tipo no próximo tópico, mas antes vamos tentar entender pelo código, de forma prática, como cada operador trabalha, e depois irei explicar de forma teórica e encerrar o assunto. Vamos lá!
 
-<div data-gist-id="11093383" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+'13' == 13 // -> true
+'13' != 13 // -> false
+
+'13' === 13 // -> false
+'13' !== 13 // -> true
+```
 
 > Vale ressaltar mais uma vez... Entender o que está acontecendo no código é super importante, e muitas vezes temos que realmente ler várias vezes e/ou ficar vários minutos para conseguir entendê-lo. E sim, isso é algo super importante, não tenha "dó" de **investir** tempo nisso!
 
@@ -226,7 +298,23 @@ Sempre que usamos `&&` e `||`, eles convertem o valor do lado esquerdo para um b
 
 O operador `||` retorna o valor da sua esquerda quando ele pode ser convertido para `true`, ou seja, quando seu valor é do tipo *truthy*, e sempre retorna o valor da direita caso contrário, independente de qual valor seja esse, até mesmo outro valor *falsy*. Veja isso na prática.
 
-<div data-gist-id="11095317" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var esquerda = '' // -> valor do tipo falsy
+var direita = 13 // -> valor do tipo truthy
+
+esquerda || direita // -> 13
+
+var direita = 0 // -> agora vamos atribuir este valor falsy na direita e ver o que acontece
+
+esquerda || direita // -> 0
+
+// Agora vamos deixar ambos os valores truthy
+
+esquerda = 13
+direita = 31
+
+esquerda || direita // -> 13
+```
 
 Viram? Mesmo o valor da direita sendo *falsy*, ele é retornado pois a regra é: "se o valor da esquerda for falsy, retorne o da direita sem nem ver qual é". E depois, quando alteramos o valor da esquerda para um valor *truthy*, ele foi retornado. Legal né?! =)
 
@@ -236,7 +324,22 @@ Vamos ver agora o outro operador.
 
 Este operador faz o contrário. Quando o valor da esquerda é *falsy*, ele é retornado, independente de qual valor seja o da sua direita. E o valor da direita **sempre** será retornado quando o da esquerda for *truthy*, mesmo que este valor da direita seja *falsy*. Vamos ver o código para ficar mais claro.
 
-<div data-gist-id="11095652" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var esquerda = NaN // -> valor do tipo falsy
+var direita = 13 // -> valor do tipo truthy
+ 
+esquerda && direita // -> NaN
+ 
+var esquerda = 31 // agora vamos atribuir um valor truthy na esquerda e ver o que acontece
+ 
+esquerda && direita // -> 13
+ 
+// Agora vamos deixar o valor da direita falsy
+ 
+direita = ''
+ 
+esquerda && direita // -> ''
+```
 
 **Muito bom!** Estamos quase terminando, e a essa altura você já sabe de várias peculiaridades do JavaScript! Vamos em frente =)
 
@@ -246,7 +349,18 @@ Este operador é de fato muito poderoso, pois evita verbosidade no código, deix
 
 Ele é chamado *operador ternário* pois envolve três peças em sua operação. Vamos analisá-lo abaixo. Primeiramente irei mostrá-lo em funcionamento e depois irei explicá-lo.
 
-<div data-gist-id="11096006" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var usuario = ''
+
+// usando o operador ternário
+usuario ? usuario : 'convidado' // -> "convidado"
+
+// atribuindo um valor a variável usuario
+usuario = 'Eric'
+
+// usando o operador ternário novamente
+usuario ? usuario : 'convidado' // -> "Eric"
+```
 
 Como funciona isso? Lhe explico já!
 
@@ -257,7 +371,12 @@ Primeiramente criamos a variável `usuario` e atribuimos uma string vazia a ela.
 3. Caso seu valor seja *truthy*, então o operador retorna a instrução **após** o sinal `?`. Caso o valor seja *falsy*, o valor retornado será o que está **após** o sinal `:`.
 4. Você pode retornar qualquer expressão JavaScript como valor de retorno dessa avaliação, veja outro exemplo:
 
-<div data-gist-id="11096534" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var cozinheiro = false
+
+cozinheiro ? { receitas : [ 'carnes','doces','tortas' ] } : console.log('mexido e olhe lá!')
+// -> "mexido e olhe lá!"
+```
 
 Entendeu como funciona? Esse operador é **muito** legal! =D
 

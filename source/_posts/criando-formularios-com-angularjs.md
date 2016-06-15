@@ -38,7 +38,11 @@ Podemos usar o `ng-class` para verificar se campo do formulário está preenchid
 
 Nossa validação ficaria assim:
 
-<div data-gist-id="4946075be091cb5e2636" data-gist-file="validation.html" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```html
+<div ng-class="{ 'has-error' : formName.inputName.$invalid && !formName.inputName.$pristine }">
+  <!-- campo(s) do formulário -->
+</div>
+```
 
 ### 3. `<input>`
 
@@ -52,7 +56,12 @@ Aqui será onde, de fato, o Angular vai olhar para dar o veredito final e dizer 
 
 Você pode colocar frases de notificação para seus usuários aqui. Assim, apenas quando determinada condição for satisfeita, essas notificações irão aparecer.
 
-<div data-gist-id="4946075be091cb5e2636" data-gist-file="p.html" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```html
+<p ng-show="formName.inputName.$error.minlength"
+   class="help-block">
+  Senha muito curta!
+</p>
+```
 
 Mostra uma mensagem para o usuário caso a senha digitada seja menor que o mínimo estipulado no `<input>` *linkado* com `formName.inputName`
 

@@ -35,7 +35,12 @@ Nosso código JavaScript é escrito com base no **padrão Unicode**, que podemos
 
 A linguagem JavaScript **faz diferenciação** de letras maiúsculas de letras minúsculas, portanto, todo o devido cuidado deve ser tomado para evitar discordâncias na chamada de funções e todas as propriedas próprias da JavaScript e implementadas por você.
 
-<div data-gist-id="10212671" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var agora = 'teste minúsculo';
+
+console.log( Agora ); // -> ReferenceError: Agora is not defined
+console.log( agora ); // -> 'teste minúsculo'
+```
 
 Nesse código acima, quando testado no Devtools do Chrome, por exemplo, terá como resultado os valores na frente da seta `->`. 
 
@@ -62,7 +67,15 @@ Voltando para os comentários, as duas formas que temos de inserir comentários 
 
 Vamos ver um exemplo:
 
-<div data-gist-id="10213141" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+/* Essa parte do meu código é comentada
+e com esse sinal eu posso fazer comentários
+em várias linhas...
+*/
+var valorX = 13;
+ 
+// Com esse símbolo, o comentário fica restrito a esta linha
+```
 
 > O termo do título dessa seção, *rodinhas*, se refere as rodinhas quando estamos aprendendo a andar de bicicleta. No início, são super importantes, mas depois que aprendemos a andar, não precisamos mais delas. Usaremos comentários nos nossos códigos para fins **didáticos**, mas os mesmos devem ser usados de forma muito escassa, pois de fato não são necessários.
 >
@@ -74,7 +87,9 @@ Vamos ver um exemplo:
 
 Ao longo dos artigos, você irá aprender de forma prática as melhores práticas de escrita de código, inclusive teremos uma seção específica para isso, mas inicialmente você apenas precisa saber que seu código JavaScript pode conter qualquer quantidade de espaços em branco entre os sinais delimitadores do programa e, por conseguinte, também ignora quebra de linhas.
 
-<div data-gist-id="10213328" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var      vazio =    'muito espaço vazio aqui'   ;
+```
 
 > Tome cuidado com as quebras de linhas, pois como veremos no fim deste artigo, em determinadas situações, o seu código pode ter um ponto e vírgula (`;`) adicionado pela própria linguagem, para prevenção de erros, porém que de fato irá gerar outros inesperados (mas que agora são esperados pois eu te falei que vão acontecer =P). 
 >

@@ -43,13 +43,38 @@ Podemos combinar expressões para formar outras mais elaboradas.
 
 Esse tipo de expressões são assim denominadas pois não incluem outras expressões, ou seja, são o menor fragmento possível do nosso código. Vejamos alguns exemplos:
 
-<div data-gist-id="11199425" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+// Expressões Literais
+13
+"JavaScript Furtivo"
+
+// Algumas Palavras Reservadas
+true
+false
+null
+
+// Referências à variáveis
+total
+i
+```
 
 <h2><a id="expressoes-de-inicializacao">Expressões de Inicialização</a></h2>
 
 Essas expressões são **muito** importantes, pois nos possibilitam a criação de *objetos* e *arrays* de forma *literal*, e isso nos dá uma facilidade e praticidade muito grande na hora de tais tarefas. Veja abaixo a forma de se criar um objeto e array de forma literal e da forma utilizada com o auxílios de seus *construtores* (iremos conhecer mais sobre construtores futuramente).
 
-<div data-gist-id="11199737" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+/* Inicializando de forma literal  */
+var meuObjeto = {}; // criado um objeto vazio
+var meuArray = []; // criado um array vazio
+
+/* Inicializando com Construtores  */
+var meuObjeto2 = new Object();
+var meuArray2 = new Array();
+
+// Quando criamos objetos/arrays vazios, podemos omitir os parênteses
+var objetoVazio = new Object;
+var arrayVazio = new Array;
+```
 
 Viram o quão econômica e elegante é a forma literal de inicialização de objetos e arrays? Use-a sem moderação!
 
@@ -57,7 +82,23 @@ Um dos motivos de enquadrarmos esta e as expressões seguintes no campo de *expr
 
 Vamos agora então, dar sentido a existência de nossos objetos e arrays!
 
-<div data-gist-id="11199959" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var estudos = { 
+  JavaScript: [ 
+    'NodeJS',
+    'AngularJS',
+    'ExpressJS',
+    'MongoDB'
+  ],
+  Outros: [ 'Jade', 'Stylus' ]
+};
+
+var livros = [
+  'Padrões JavaScript',
+  'JavaScript: O Guia Definitivo',
+  'O Melhor do JavaScript'
+];
+```
 
 No exemplo acima, na variável `estudos` (que é um *objeto*, veja pelo sinal `{}` que *abraça* os demais valores), temos as *propriedades* `JavaScript` e `Outros` recebendo arrays como valores, e estes arrays recebem *strings*, por sua vez.
 
@@ -78,7 +119,15 @@ Para chamarmos nossa função posteriormente, devemos ou atribuí-la a uma vari�
 
 Veja alguns exemplos:
 
-<div data-gist-id="11234132" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function nomeada() {
+  // outras expressões aqui
+}
+
+var outraFuncao = function(parametro1, parametro2) {
+  // mais expressões aqui
+}
+```
 
 <h2><a id="expressoes-para-acessar-propriedades">Expressões para Acessar Propriedades</a></h2>
 
@@ -90,7 +139,20 @@ Usamos esse tipo de expressão para obter o valor de alguma propriedade/item de 
 
 Essa forma é utilizada exclusivamente para acessar *propriedades* e *métodos* de **objetos**. Onde temos escrito *expressão*, iremos utilizar o nome do nosso objeto, e onde temos *chave*, iremos passar o nome da propriedade/método que queremos avaliar. Vamos para o console e tornar isso mais claro.
 
-<div data-gist-id="11227222" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var guitarras = {
+  modelo1: 'music man',
+  modelo2: 'ibanez',
+  modelo3: 'prs',
+  cordas: [ 'elixir', 'daddario' ]
+};
+
+// Se quisermos então saber o valor do modelo2...
+guitarras.modelo2 // -> 'ibanez'
+
+// O valor do segundo item do array "cordas"
+guitarras.cordas.2 // -> SyntaxError: Unexpected number
+```
 
 Notem que tivemos um erro ao tentar acessar o segundo item da propriedade cordas! Isso se deve pelo motivo que para acessar itens de arrays, utilizamos outro tipo de notação, que irei lhe explicar agora!
 
@@ -100,7 +162,25 @@ Notem que tivemos um erro ao tentar acessar o segundo item da propriedade cordas
 
 Com esse tipo de notação podemos acessar tanto os itens de um array quanto as propriedades de um objeto. Onde temos o valor *expressão* iremos substituir pelo nome do array ou objeto, e onde temos chave, iremos substituir pela posição do item (caso seja um array) ou pelo nome da propriedade, caso seja um objeto. Vamos agora utilizar do nosso exemplo anterior, porém acessando o objeto e o array com esta notação por colchetes.
 
-<div data-gist-id="11227495" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var guitarras = {
+  modelo1: 'music man',
+  modelo2: 'ibanez',
+  modelo3: 'prs',
+  cordas: [ 'elixir', 'daddario' ]
+};
+
+// Se quisermos então saber o valor do modelo2...
+guitarras['modelo2'] // -> 'ibanez'
+
+// O valor do segundo item do array "cordas"
+guitarras.cordas[1] // -> 'daddario'
+
+// uma peculiaridade dessa notação: podemos passar um valor
+// contido em uma variável como a chave para buscar um item/propriedade
+var modeloPreferido = 'modelo1';
+guitarras[modeloPreferido] // -> 'music man'
+```
 
 ### Dicas de "Acessibilidade"
 
@@ -121,7 +201,16 @@ Para usar essa expressão devemos indicar o nome da função que desejamos invoc
 
 Vamos ver um exemplo:
 
-<div data-gist-id="11229463" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+// definindo uma função: expressão de definição
+function multiplica( valor1, valor2 ) {
+  return valor1 * valor2;
+}
+
+// chamando a função: expressão de invocação
+multiplica( 5, 8 ); // -> 40
+multiplica( 3, 13 ); // -> 39
+```
 
 ### Entendendo o Processo de Invocação
 
@@ -141,7 +230,11 @@ Nessas expressões utilizamos as *funções construtoras* para criar novos objet
 
 Alguns exemplos da utilização dessas expressões:
 
-<div data-gist-id="11230512" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var cestaDeCompras = new Object();
+var dataDeAgora = new Date();
+var listaDeCompras = new Array();
+```
 
 <h2><a id="mais-expressoes">Mais Expressões</a></h2>
 

@@ -15,6 +15,17 @@ Veja a resolução do exercício aqui!
 
 E aqui o código do nosso programa chamado `sum.js`.
 
-<div data-gist-id="278697ed975f2b455129" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+var enter = process.argv;
+var sizeEnter = enter.length;
+var i = 2;
+var result = 0;
+
+for ( ; i < sizeEnter; i += 1) {
+  result += +enter[ i ];
+}
+
+console.log( result );
+```
 
 Você pode ver **todos** os códigos dos exercícios da nossa série [aqui](https://github.com/ericdouglas/nodeschoolcast).

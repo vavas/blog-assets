@@ -121,7 +121,23 @@ Essa estrutura verifica **SE** (`if`) uma condição é verdadeira, então um tr
 
 Iremos usar além das estruturas de decisão, funções para separar cada parte do código, deixando-o reutilizável e com apenas uma responsabilidade. Mãos a obra!
 
-<div data-gist-id="eaa588e45a39ce2abe93" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function calculaPorcentagem( atual, total ) {
+  return atual / total;
+}
+
+function mensagemParaLeitor( pagLida, pagTotal ) {
+  var status = calculaPorcentagem( pagLida, pagTotal );
+
+  if ( status >= 0.5 ) {
+    console.log( 'Parabéns! Continue nesse ritmo!' );
+  } else {
+    console.log( 'Continue lendo! A recompensa virá em breve.' );
+  }
+}
+
+mensagemParaLeitor(23, 46); // Parabéns! Continue nesse ritmo!
+```
 
 Perceba que nossa função `calculaPorcentagem()` pode ser reutilizada em qualquer outro programa que necessite desse tipo de cálculo.
 
@@ -133,7 +149,27 @@ Agora, vamos imaginar que tenhamos que criar notificações para o leitor a cada
 
 Vamos fazer a nova etapa do programa com mensagens a cada 25% de leitura completada.
 
-<div data-gist-id="9718be41fc105bdc09d2" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function calculaPorcentagem( atual, total ) {
+    return atual / total;
+}
+
+function mensagemParaLeitor( pagLida, pagTotal ) {
+  var status = calculaPorcentagem( pagLida, pagTotal );
+
+  if ( status < 0.25 ) {
+    console.log( 'Continue lendo! A recompensa virá em breve.' );
+  } else if ( status < 0.5 ) {
+    console.log( 'Você está quase na metade!' );
+  } else if ( status < 0.75 ) {
+  console.log( 'Parabéns! Continue nesse ritmo!' );
+  } else {
+    console.log( 'Agora falta pouco! Vamos continuar!' );
+  }
+}
+
+mensagemParaLeitor(44, 46); // Agora falta pouco! Vamos continuar!
+```
 
 Ótimo! Conseguimos agrupar as verificações sem ter que criar duas verificações para cada *etapa*.
 
@@ -143,7 +179,21 @@ Pense que você queira realmente verificar muito detalhadamente o progresso da l
 
 Para nos auxiliar, iremos conhecer uma nova estrutura condicional, ou estrutura de decisão, chamada `switch`. Com essa estrutura conseguimos deixar o código mais legível, veja como ela se parece:
 
-<div data-gist-id="8be45c7d420e9a117375" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+switch ( valor ) {
+  case a:
+    // faça isso
+    break;
+
+  case b:
+    // faça isso
+    break;
+
+  default:
+    // ação padrão
+    break;
+}
+```
 
 De forma mais teórica, seu funcinamento acontece da seguinte maneira:
 
@@ -156,7 +206,56 @@ De forma mais teórica, seu funcinamento acontece da seguinte maneira:
 
 Agora que sabemos como utilizar a estrutura `switch`, vamos adaptar nosso código anterior fazendo a alteração para imprimirmos uma mensagem para o usuário do nosso programa a cada 5% de leitura completada.
 
-<div data-gist-id="e6163f776b820cc7d846" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function calculaPorcentagem( atual, total ) {
+    return atual / total;
+}
+
+function mensagemParaLeitor( pagLida, pagTotal ) {
+  var status = calculaPorcentagem( pagLida, pagTotal );
+
+  switch ( true ) {
+    case status > 0.95:
+      console.log( 'Faltando menos de 5%...' );
+      break;
+
+    case status > 0.90:
+      console.log( 'Faltando menos de 10%...' );
+      break;
+
+    case status > 0.85:
+      console.log( 'Faltando menos de 15%...' );
+      break;
+
+    case status > 0.80:
+      console.log( 'Faltando menos de 20%...' );
+      break;
+
+    case status > 0.75:
+      console.log( 'Faltando menos de 25%...' );
+      break;
+
+    case status > 0.70:
+      console.log( 'Faltando menos de 30%...' );
+      break;
+
+    case status > 0.65:
+      console.log( 'Faltando menos de 35%...' );
+      break;
+
+    case status > 0.60:
+      console.log( 'Faltando menos de 40%...' );
+      break;
+
+    // Implemente, como exercício, o resto das possibilidades =)
+
+    default:
+      console.log( 'Parabéns por iniciar a leitura deste livro!' );
+  }
+}
+
+mensagemParaLeitor( 85, 100 ); // Faltando menos de 20%...
+```
 
 **Perfeito!** Agora conhecemos mais uma estrutura do JavaScript que nos auxilia na resolução de problemas cotidianos.
 

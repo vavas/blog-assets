@@ -47,11 +47,32 @@ Essa ferramenta nos permite escrever códigos html de forma simples e prática, 
 
 <code>index.jade</code>
 
-<div data-gist-id="9084198" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```jade
+doctype
+html
+    head
+        meta(charset="utf-8")
+        title Prévia do Jade
+    body
+        h1 Bushido JavaScript
+        p Iniciando nossa jornada...
+```
 
 **Saída HTML**: <code>index.html</code>
 
-<div data-gist-id="9084316" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+        <meta charset="utf-8">
+        <title>Prévia do Jade</title>
+  </head>
+  <body>
+        <h1>Bushido JavaScript</h1>
+        <p>Iniciando nossa jornada...</p>
+  </body>
+</html>
+```
 
 ### Stylus
 
@@ -59,11 +80,42 @@ Com a mesma filosofia do Jade, mas agora para a linguagem CSS!
 
 <code>estilo.styl</code>
 
-<div data-gist-id="9084326" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```css
+.menu-setores
+    position absolute
+    bottom 0
+    right 0
+
+    ul
+        font-size 15px
+
+    li
+        display inline
+        margin-left 20px
+
+    a
+        color #036
+```
 
 **Saída CSS:** <code>estilo.css</code>
 
-<div data-gist-id="9084346" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```css
+.menu-setores {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.menu-setores ul {
+    font-size: 15px;
+}
+.menu-setores ul li {
+    display: inline;
+    margin-left: 20px;
+}
+.menu-setores a {
+    color: #036;
+}
+```
 
 ### Gulp
 

@@ -101,7 +101,20 @@ Press tab to list possible options.
 
 Lembra dos arquivos que criamos? Pois bem, chegou a hora de utilizarmos os mesmos. É prática comum desenvolver os testes **antes** do código em si, e após um teste configurado, vamos implementando nosso código aos poucos, com *baby-steps* (passos de bebê). Sendo assim, vamos então abrir nosso arquivo <code>spec-mult.js</code> e criarmos um teste, o qual verificará se nossa função está fazendo a multiplicação de dois números de forma correta.
 
-<div data-gist-id="9220116" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+describe('função que multiplica dois números', function () {
+
+	var mult = multiplicaDoisNumeros;
+
+	it('verifica se estamos multiplicando corretamente', function () {
+
+		expect( mult ).toBeDefined();
+		expect( mult( 3, 7 ) ).toBe( 21 );
+
+	});
+
+});
+```
 
 Bom, o que fizemos aqui? Primeiramente, *descrevemos* (`describe`) o que nossa função faz/deve fazer. Depois disso, configuramos que nossa variável <code>mult</code> será o novo nome para a função <code>multiplicaDoisNumeros</code> que definimos no nosso outro arquivo.
 
@@ -117,14 +130,21 @@ Tudo certo! Volte ao terminal e digite o seguinte comando:
 
 Vamos agora criar nossa função `multiplicaDoisNumeros`, fazendo com que a mesma retorne exatamente o esperado pelo nosso teste, porém da forma mais fácil possível, que é a seguinte:
 
-<div data-gist-id="9220124" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function multiplicaDoisNumeros () {
+	return 21;
+}
+```
 
 **Sucesso!** Conseguimos receber nossa tão esperada mensagem de sucesso, mostrando que nosso teste passou, e nossa função realmente faz o que desejamos que ela faça... ou quase isso =P
 
 Vamos implementar agora a função esperada, que recebe dois valores como parâmetros e retorna a multiplicação destes, finalizando assim nosso trabalho com esta função.
 
-<script src="https://gist.github.com/ericdouglas/9220129.js"></script>
-<div data-gist-id="9220129" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+function multiplicaDoisNumeros ( valor1, valor2 ) {
+	return valor1 * valor2;
+}
+```
 
 **Agora sim!** Finalmente, conseguimos um resultado satisfatório! =D
 

@@ -15,6 +15,8 @@ Veja a rápida introdução e resolução do primeiro exercício do primeiro mó
 
 O <del>dificílimo</del> código do exercício de hoje! =P
 
-<div data-gist-id="f61b560e55ded98ae214" data-gist-hide-footer="true" data-gist-hide-line-numbers="true"></div>
+```js
+console.log( 'HELLO WORLD' );
+```
 
 Deixarei os códigos dos exercícios disponíveis [neste repositório](https://github.com/ericdouglas/nodeschoolcast)! Até a próxima! =D

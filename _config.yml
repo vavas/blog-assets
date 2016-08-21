@@ -4,7 +4,7 @@
 
 # Site
 title: Eric Douglas
-subtitle: 'JavaScript Developer ❤'
+subtitle: 'JavaScript Developer ❤ Open Source Lover'
 description:
 author: Eric Douglas
 language: en
@@ -69,7 +69,7 @@ google_analytics: UA-48165601-1
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: casper
+theme: next
 
 # Deployment
 ## Docs: http://zespia.tw/hexo/docs/deployment.html

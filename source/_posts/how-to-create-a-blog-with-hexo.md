@@ -100,7 +100,7 @@ hexo g && hexo s
 ## Configuring Your Blog
 Now that you have your site up and running, you need to configure it with your personal information. We have two configurations files to change, `_config.yml` in the root of your project, and `_config.yml` located in the `themes/next` folder. Just open those files and put your personal information on them!
 
-If you have some doubts about it, look my config files [here](https://github.com/ericdouglas/blog-assets/blob/theme/next/_config.yml) and [here](https://github.com/ericdouglas/hexo-theme-next/blob/master/_config.yml).
+If you have some doubts about it, look my config files [here](https://github.com/ericdouglas/blog-assets/blob/master/_config.yml) and [here](https://github.com/ericdouglas/hexo-theme-next/blob/master/_config.yml).
 
 ## Writing Your First Article
 Now you are almost done with your blog setup. It is time to write your first article.
@@ -145,4 +145,4 @@ hexo d -g
 
 **It's done!** Now you have a great blog fully set up, just write some cool stuff there and share with us :D
 
-> If you found something wrong, you can contribute to this article [here](https://github.com/ericdouglas/blog-assets/blob/theme/next/source/_posts/how-to-create-a-blog-with-hexo.md).
+> If you found something wrong, you can contribute to this article [here](https://github.com/ericdouglas/blog-assets/blob/master/source/_posts/how-to-create-a-blog-with-hexo.md).

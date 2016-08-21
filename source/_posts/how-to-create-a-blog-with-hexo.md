@@ -129,6 +129,9 @@ To enable HTTPS on your blog, go to the **Settings** tab in your repository, scr
 
 ![Enforce HTTPS](http://i.imgur.com/YEQ1SKT.png)
 
+## Adding a favicon to Your Blog
+Just go to the [Realfavicongenerator.net](http://realfavicongenerator.net/) site and generate your favicon. After this, put the `favicon.ico` in the `source` folder.
+
 ## Generate and Deploy
 **This is the final step**! Let's generate the static files and deploy those ones to GitHub. To do this use the following commands:
 

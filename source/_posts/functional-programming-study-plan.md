@@ -59,7 +59,7 @@ The following guide will also work as an index for future posts and/or indicatio
   - Folds & Unfolds
   - Higher-Order abstractions (Category, Functor, Monad)
   - Basic Optics
-  - Efficient Persisten Data Structures
+  - Efficient Persistent Data Structures
   - Existential Types
   - Embedded DSLs using Combinators
 - **SKILLS**

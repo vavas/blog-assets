@@ -1,9 +1,3 @@
-title: effective-thinking-through-mathematics
-date: 2016-12-19 19:49:50
-tags:
-  - ossu
----
-
 ## Week 1 - The Meanie Genie
 We learned how to apply the five principles that are the core of the course. Those concepts are:
 

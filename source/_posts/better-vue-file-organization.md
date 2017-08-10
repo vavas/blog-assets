@@ -193,7 +193,7 @@ export default {
   },
 
   computed: {
-    feedData: feedData(this)
+    feedData() { feedData(this) }
   },
 
   data () {

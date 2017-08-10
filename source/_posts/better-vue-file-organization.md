@@ -4,11 +4,11 @@ tags:
   - vue
 ---
 
-Before we see an alternative way to organize our vue files/components, I must say although I believe it's a better approach, in fact there aren't _right_ or _wrong_ way, we should follow the way we feel more comfortable to work with.
+Before we see an alternative way to organize our vue files/components, I must say although I believe it's a better approach, in fact, there aren't _right_ or _wrong_ way, we should follow the way we feel more comfortable to work with.
 
 The following piece of code was extracted from the [rss-reader](https://github.com/mrgodhani/rss-reader/blob/master/app/components/partials/sidebar.vue) project.
 
-First we'll see the original file, and after, the proposed way to organize it.
+First, we'll see the original file, and after, the proposed way to organize it.
 
 **The mental process**
 
@@ -18,11 +18,11 @@ First we'll see the original file, and after, the proposed way to organize it.
 
 **Reasons to change**
 
-1. Better way to visualize all methods that we have in the file.
+1. Better way to visualize all methods we have in the file.
 1. Easier way to extract a function to another file if/when necessary.
 1. More "functional" style (!?).
 
-Let's see and compare the traditional approach and the suggested/alternative one.
+Let's see and compare the traditional approach with the suggested/alternative one.
 
 **Traditional approach**
 

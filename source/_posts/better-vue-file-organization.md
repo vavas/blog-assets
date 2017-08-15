@@ -4,6 +4,10 @@ tags:
   - vue
 ---
 
+**Update 2017-08-10**: after post this article on [/r/vue](https://www.reddit.com/r/vuejs/), one person [commented](https://www.reddit.com/r/vuejs/comments/6spt3o/better_vue_file_organization/dlf5drd/) that we don't need to pass the context since the function will refer to the context where it is called so now in the end of the article we'll have an even cleaner way to organize our files!
+
+---
+
 Before we see an alternative way to organize our vue files/components, I must say although I believe it's a better approach, in fact, there aren't _right_ or _wrong_ way, we should follow the way we feel more comfortable to work with.
 
 The following piece of code was extracted from the [rss-reader](https://github.com/mrgodhani/rss-reader/blob/master/app/components/partials/sidebar.vue) project.
@@ -167,7 +171,7 @@ export default {
 </script>
 ```
 
-**Alternative/suggested approach**
+**Alternative approach**
 
 ```js
 <script>
@@ -333,6 +337,182 @@ function addFeedData(ctx) {
       self.processed = false
       self.showModal = false
       ctx.feedurl = ''
+    } else {
+      self.alert = true
+      self.alertmessage = err
+      self.processed = false
+    }
+  })
+}
+</script>
+```
+
+**Better and cleaner approach**
+
+```js
+<script>
+import Feed from '../../helpers/feeds'
+import Favicon from '../../helpers/favicon'
+import queue from '../../helpers/queue'
+import service from '../../helpers/services'
+import { addArticles, addFeed } from '../../vuex/actions'
+import _ from 'lodash'
+import async from 'async'
+
+export default {
+  vuex: {
+    getters: {
+      offline: state => state.offline,
+      feeds: state => state.feeds
+    },
+
+    actions: {
+      addArticles,
+      addFeed
+    }
+  },
+
+  computed: {
+    feedData
+  },
+
+  data () {
+    return {
+      feedurl: '',
+      alertmessage: '',
+      showModal: false,
+      processed: false
+    }
+  },
+
+  methods: {
+    allArticles,
+    tags,
+    favourites,
+    goFeed,
+    readArticles,
+    unreadArticles,
+    fetchFeed,
+    checkFeed,
+    fetchIcon,
+    addFeedItem,
+    addArticleItems,
+    addFeedData
+  }
+}
+
+////////// Computed Properties
+function feedData() {
+  return this.feeds.map(item => {
+    if (item.title.length >= 20) {
+      item.origtitle = item.title
+    }
+    item.title = _.truncate(item.title, { length: 20 })
+    return item
+  })
+}
+
+////////// Methods
+function allArticles() {
+  return this.$route.router.go({path: '/', replace: true})
+}
+
+function tags() {
+  return this.$route.router.go({path: '/tags', replace: true})
+}
+
+function favourites() {
+  return this.$route.router.go({path: '/article/favourites'})
+}
+
+function goFeed(title) {
+  return this.$route.router.go({path: '/feed/' + title})
+}
+
+function readArticles() {
+  return this.$route.router.go({path: '/article/read'})
+}
+
+function unreadArticles() {
+  return this.$route.router.go({path: '/article/unread'})
+}
+
+function fetchFeed(callback) {
+  let feed = new Feed(this.feedurl)
+
+  feed.init().then(result => {
+    if (result === null) {
+      let error = 'Sorry. I couldn\'t figure out any RSS feed on this address. Try to find link to RSS feed on that site by yourself and paste it here.'
+      callback(error)
+    } else {
+      callback(null, result)
+    }
+  }, err => {
+    if (err) {}
+    let error = 'Sorry. Unfortunately this website is not supported.'
+    callback(error)
+  })
+}
+
+function checkFeed(data, callback) {
+  service.checkFeed(data.meta.title, count => {
+    if (count === 0) {
+      callback(null, data)
+    } else {
+      callback('Feed exists')
+    }
+  })
+}
+
+function fetchIcon(data, callback) {
+  let favicon = new Favicon(data.meta.link)
+  favicon.init().then(result => {
+    let path
+    if (result !== null) {
+      path = queue.queueTask('favicon', result)
+    } else {
+      path = null
+    }
+    data.meta.favicon = path
+    data.meta.count = data.articles.length
+    callback(null, data)
+  })
+}
+
+function addFeedItem(data, callback) {
+  this.addFeed(data.meta, result => {
+    data.meta = result
+    callback(null, data)
+  })
+}
+
+function addArticleItems(data, callback) {
+  data.articles.map(item => {
+    let htmlFilename = queue.queueTask('html', item.link)
+    item.feed = data.meta.title
+    item.feed_id = data.meta._id
+    item.file = htmlFilename
+    item.favicon = data.meta.favicon
+    return item
+  })
+  this.addArticles(data.articles)
+  callback(null, 'done')
+}
+
+function addFeedData() {
+  let self = this
+  this.processed = true
+  async.waterfall([
+    this.fetchFeed,
+    this.checkFeed,
+    this.fetchIcon,
+    this.addFeedItem,
+    this.addArticleItems
+  ], (err, result) => {
+    if (!err) {
+      self.processed = false
+      self.showModal = false
+      this.feedurl = ''
     } else {
       self.alert = true
       self.alertmessage = err

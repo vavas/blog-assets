@@ -6,7 +6,7 @@ tags:
   - relational databases
 ---
 
-Let's learn some basics and "to the point" examples how to manage our databases in PostgreSQL using the command line.
+Let's learn some basics and "to the point" examples about how to manage our databases in PostgreSQL using the command line.
 
 > **obs**: we assume you have postgres installed on your machine. If it is not the case, install it following the instructions [here](https://www.postgresql.org/download/).
 

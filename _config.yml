@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://ericdouglas.github.io
+url: http://ericdouglas.github.io # can't put https or I'll loose previous comments
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -83,4 +83,4 @@ deploy:
 feed:
     type: atom
     path: atom.xml
-    limit: 20
+    limit: 100

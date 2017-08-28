@@ -9,6 +9,13 @@ tags:
 ![car in a wind tunnel testing](http://i.imgur.com/6b4GmhV.jpg)
 [image source](https://www.carthrottle.com/post/n43v9xq/)
 
+## TL;DR.
+- Elixir has an amazing built-in feature that let's you test code inside documentation.
+- You don't need to install any tool to write your tests, it's built-in in the language!
+- Elixir has an official dependency that generates a beautiful HTML page for your docs running one simple command.
+
+---
+
 One of the first and most impressive characteristics I saw when I started to study Elixir was the powerful yet simple built-in tools to help developers write documentation and tests.
 
 A very special feature is the called `doctest`, which is a test that lives inside your documentation. With such tests, you can assure your docs are up-to-date, because whenever you run your tests, the tests inside your documentation will also be verified. **Really awesome**!
@@ -106,16 +113,165 @@ Another interesting part is the `doctest Staircase`. This tells that we will run
 
 Inside our `test` case, we can see that the `capture_io` function, from the `ExUnit.CaptureIO` module, receives an anonymous function (`fn -> end`). This is how that function works: you should pass an anonymous functions to it so it'll be called later. Check the documentation linked before to see more ways to use this function.
 
-To finish the explanation of our tests, the string representing the output was written in the line below of our assertion because in that way the spaces before each line wouldn't broke our assertion. You can see though that Elixir allows us to write strings using multiple lines.
+To finish the explanation of our tests, the string representing the output was written in the line below of our assertion because in that way the spaces before each line wouldn't mess/broke our assertion. You can see though that Elixir allows us to write strings using multiple lines.
+
+## Writing the module
+Breaking the specification more granularly, we have to:
+
+1. Receive an integer corresponding to the size `n` of the staircase
+1. Generate a string with an arbitrary size containing spaces
+1. Generate a string with an arbitrary size containing `#` characters
+1. Generate a row appending the _space_ string and _char_ string
+1. A row should be made of `n` characters, counting spaces and `#`
+1. Print such row
+
+A possible solution to accomplish such task could be:
+
+1. Create a module `Staircase`
+1. Create a `main` function to receive the input and print each row to the output
+1. Create a function to generate a string of an arbitrary size composed with an arbitrary char
+1. Append the string made with spaces and the string made with `#`
+1. Print the final string
+
+Here is my solution for such task. Such code should be copied to the `staircase.ex` file, inside the `lib` folder.
+
+```elixir lib/staircase.ex
+defmodule Staircase do
+  def main(size) do
+    Enum.each(1..size, fn i ->
+      IO.puts(string_gen(size - i, " ") <> string_gen(i, "#"))
+    end)
+  end
+
+  def string_gen(0, _), do: ""
+  def string_gen(size, char) when size > 0 do
+    Enum.reduce(1..size, "", fn(_i, acc) -> acc <> char end)
+  end
+end
+```
+
+Now we have our final solution, let's run our tests to see if it's working fine.
+
+Type `mix test` in your terminal and you should see the following message:
+
+```
+> mix test
+.
+
+Finished in 0.03 seconds
+1 test, 0 failures
+
+Randomized with seed 477889
+```
+
+**Great**! Now we are almost done. Let's finish writing some documentation and the most exciting part the doctests :)
+
+## Documentation and doctests
+From the Elixir docs:
+
+> Elixir treats documentation as a first-class citizen. This means documentation should be easy to write and easy to read.
+
+We can easily confirm this statement. Elixir gives to us the module attributes `@moduledoc` and `@doc` so we can write documentation for our modules and functions. You can write in markdown inside your documentation as well.
+
+Let's see it in practice.
+
+In the `staircase.ex` file, below your module definition, let's add a `@moduledoc`.
+
+```elixir lib/staircase.ex
+defmodule Staircase do
+  @moduledoc """
+  Generate staircases based on the input value
+  """
+
+  # ...
+end
+```
+
+Now let's describe what our `main` function does:
+
+```elixir lib/staircase.ex
+@doc """
+Receives the input and print the staircase to the console
+"""
+def main(size) do
+  Enum.each(1..size, fn i ->
+    IO.puts(string_gen(size - i, " ") <> string_gen(i, "#"))
+  end)
+end
+```
+
+And finally, let's describe what our `string_gen` function does and write some tests inside our documentation!
+
+```elixir lib/staircase.ex
+@doc """
+Generate a string with `size` characters `char`
+
+## Example
+
+    iex> Staircase.string_gen(0, "#")
+    ""
+
+    iex> Staircase.string_gen(1, "#")
+    "#"
+
+    iex> Staircase.string_gen(7, "#")
+    "#######"
+
+    iex> Staircase.string_gen(0, " ")
+    ""
+
+    iex> Staircase.string_gen(1, " ")
+    " "
+
+    iex> Staircase.string_gen(7, " ")
+    "       "
+"""
+def string_gen(0, _), do: ""
+def string_gen(size, char) when size > 0 do
+  Enum.reduce(1..size, "", fn(_i, acc) -> acc <> char end)
+end
+```
+
+This last part receives our attention. In order to write code that will be evaluated when you run your tests, you have to put inside your `@doc` the `## Example` part exactly in the way it was done here:
+
+1. Add `## Example`
+1. Skip a line
+1. Add 4 spaces considering the column where `## Example` started
+1. Add `iex>` and the function/code that will be tested
+1. Write what is the return of such function in the line below
+
+Let's run `mix test` so you can see we have **7 tests** now. Pretty cool!
+
+```
+> mix test
+Compiling 1 file (.ex)
+.......
+
+Finished in 0.07 seconds
+7 tests, 0 failures
+
+Randomized with seed 70528
+```
+
+Changing the second assertion to intentionally break the test we can see how helpful and smart ExUnit is.
+
+```
+  1) test doc at Staircase.string_gen/2 (2) (StaircaseTest)
+     test/staircase_test.exs:4
+     Doctest failed
+     code: Staircase.string_gen(1, "#") === "&"
+     left: "#"
+     stacktrace:
+       lib/staircase.ex:23: Staircase (module)
 
 
 
+Finished in 0.07 seconds
+7 tests, 1 failure
+```
 
+It tells exactly what and where the problem was. Amazing stuff, serious.
 
-
-
-write about tests ok
-write about function
-write about moduledoc
-write about comment on main
-write about doc
+> That's it! I hope you enjoyed that simple demonstration of the helpful features Elixir brings to us for free.
+>
+> Until next ;D

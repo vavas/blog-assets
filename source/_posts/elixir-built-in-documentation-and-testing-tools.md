@@ -10,9 +10,9 @@ tags:
 [image source](https://www.carthrottle.com/post/n43v9xq/)
 
 ## TL;DR.
-- Elixir has an amazing built-in feature that let's you test code inside documentation.
+- Elixir has an amazing built-in feature that let's you test code inside the documentation.
 - You don't need to install any tool to write your tests, it's built-in in the language!
-- Elixir has an official dependency that generates a beautiful HTML page for your docs running one simple command.
+- Elixir has an official dependency that generates a beautiful HTML page for your docs.
 
 ---
 
@@ -47,7 +47,7 @@ output >
 ## Creating the project
 To create the project, type the following command in your terminal:
 
-```sh terminal
+```
 mix run staircase
 ```
 
@@ -67,13 +67,13 @@ end
 Now all you need to do is run the command `mix deps.get` to install the dependency.
 
 ## Writing the tests
-First we'll write some tests to make it more easy to verify if our solution is actually satisfying our specs.
+First we'll write some tests so we'll be able to easily verify if our solution is actually satisfying our specs.
 
 To do this, go to the already created file inside the `test` folder `staircase_test.exs`.
 
 > All test files end up with the `.exs` extension. The difference between `.ex` and `.exs` is that files with the `.exs` won't be compiled, they're *Elixir scripts*.
 
-Let's remove the test case and add our assertions there:
+Let's remove the original test case and add our assertions there:
 
 ```elixir test/staircase_test.exs
 defmodule StaircaseTest do
@@ -107,13 +107,15 @@ end
 
 Don't panic! Those tests have some interesting peculiarities and it'll be a good opportunity to learn them. I know it's looking a little ugly but I hope after the explanation you'll be more comfortable with such assertions.
 
-The first piece to note is the `import ExUnit.CaptureIO`. This module gives to us the ability to capture the output of a function so we can make an assertion to that. You can learn more about such module [here](https://hexdocs.pm/ex_unit/ExUnit.CaptureIO.html#content).
+The first piece to note is the `import ExUnit.CaptureIO`. This module gives to us the ability to capture the output when a function prints something so we can make an assertion to that output. You can learn more about such module [here](https://hexdocs.pm/ex_unit/ExUnit.CaptureIO.html#content).
 
 Another interesting part is the `doctest Staircase`. This tells that we will run the tests inside the documentation of the module `Staircase` together with this suit of tests.
 
 Inside our `test` case, we can see that the `capture_io` function, from the `ExUnit.CaptureIO` module, receives an anonymous function (`fn -> end`). This is how that function works: you should pass an anonymous functions to it so it'll be called later. Check the documentation linked before to see more ways to use this function.
 
-To finish the explanation of our tests, the string representing the output was written in the line below of our assertion because in that way the spaces before each line wouldn't mess/broke our assertion. You can see though that Elixir allows us to write strings using multiple lines.
+To finish the explanation of our tests, the string representing the output was written in the line below of our assertion because in that way the spaces before each line wouldn't mess/broke our assertion and it's more intuitive to see the final result.
+
+You can see though that Elixir allows us to write strings in multiple lines.
 
 ## Writing the module
 Breaking the specification more granularly, we have to:
@@ -121,7 +123,7 @@ Breaking the specification more granularly, we have to:
 1. Receive an integer corresponding to the size `n` of the staircase
 1. Generate a string with an arbitrary size containing spaces
 1. Generate a string with an arbitrary size containing `#` characters
-1. Generate a row appending the _space_ string and _char_ string
+1. Generate a row appending the _space_ string and the _char_ string
 1. A row should be made of `n` characters, counting spaces and `#`
 1. Print such row
 
@@ -150,9 +152,9 @@ defmodule Staircase do
 end
 ```
 
-Now we have our final solution, let's run our tests to see if it's working fine.
+Now that we have our final solution, let's run our tests to see if it's working fine.
 
-Type `mix test` in your terminal and you should see the following message:
+Typing `mix test` in your terminal you should see the following message:
 
 ```
 > mix test
@@ -164,7 +166,7 @@ Finished in 0.03 seconds
 Randomized with seed 477889
 ```
 
-**Great**! Now we are almost done. Let's finish writing some documentation and the most exciting part the doctests :)
+**Great**! Now we are almost done. Let's finish writing some documentation and the most exciting part, the doctests :)
 
 ## Documentation and doctests
 From the Elixir docs:
@@ -204,7 +206,7 @@ And finally, let's describe what our `string_gen` function does and write some t
 
 ```elixir lib/staircase.ex
 @doc """
-Generate a string with `size` characters `char`
+Generate a string of size `size` made with characters `char`
 
 ## Example
 
@@ -238,9 +240,9 @@ This last part receives our attention. In order to write code that will be evalu
 1. Skip a line
 1. Add 4 spaces considering the column where `## Example` started
 1. Add `iex>` and the function/code that will be tested
-1. Write what is the return of such function in the line below
+1. Write what is the expected return of such function in the line below
 
-Let's run `mix test` so you can see we have **7 tests** now. Pretty cool!
+Let's run `mix test` so you can see we have now **7 tests**. Pretty cool!
 
 ```
 > mix test
@@ -270,7 +272,7 @@ Finished in 0.07 seconds
 7 tests, 1 failure
 ```
 
-It tells exactly what and where the problem was. Amazing stuff, serious.
+It tells exactly what and where the problem is. Amazing stuff, serious.
 
 ## Generating the documentation page
 Our final step is to generate our beautiful documentation page using the ExDoc tool we installed in the beginning of the article.

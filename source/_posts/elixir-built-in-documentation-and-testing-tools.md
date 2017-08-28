@@ -272,6 +272,22 @@ Finished in 0.07 seconds
 
 It tells exactly what and where the problem was. Amazing stuff, serious.
 
+## Generating the documentation page
+Our final step is to generate our beautiful documentation page using the ExDoc tool we installed in the beginning of the article.
+
+It's extremely easy to do so, just run `mix docs` and you're done!
+
+```
+> mix docs
+Compiling 1 file (.ex)
+Docs successfully generated.
+View them at "doc/index.html".
+```
+
+Go to `doc/index.html` and open the file in your favorite browser to navigate in your docs!
+
+**OBS**: you can activate the night mode in the end of the page clicking in "Switch to night mode".
+
 > That's it! I hope you enjoyed that simple demonstration of the helpful features Elixir brings to us for free.
 >
 > Until next ;D

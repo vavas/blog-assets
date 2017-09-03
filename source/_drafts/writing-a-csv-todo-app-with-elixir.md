@@ -4,7 +4,7 @@ tags:
   - elixir
 ---
 
-In this article we will build a simple Todo application that can be used through the Interactive Elixir shell `IEx`. This app will use a `.csv` file to persist the data.
+In this article we will build a simple Todo application that can be used through the Interactive Elixir shell `IEx`. This app will use a `.csv` file to persist data.
 
 Some interesting topics you will see here:
 
@@ -15,11 +15,10 @@ Some interesting topics you will see here:
 - Write and read *Comma Separated Values* files (`.csv`)
 - Data transformation
 - Unit tests
-- Project configuration based on environment variables
 - Automatic project recompilation
 - Print formatted text to terminal (bold, italic, etc)
 
-**Obs**: The idea of this project came from the book Elixir in Action by Saša Jurić, more precisely in the Chapter 4. The code presented here though is very different of the created in the book and the specifications are also very different so even if you read the book you can still see some interesting stuff here.
+**Obs**: The idea of this project came from the book *Elixir in Action* <a href="#References"><sup>1</sup></a> by Saša Jurić, more precisely in the Chapter 4. The code presented here though is very different of the created in the book and the specifications are also very different so even if you read the book you can still see some interesting stuff here.
 
 ## Briefing
 Before start coding, let's discuss the basic set of features our app should has to guide our development.
@@ -42,8 +41,8 @@ We will add some niceties along the way but that's enough to start to think in o
 To create the basic structure of the project, run:
 
 ```
-mix new ex_todo_csv
-cd ex_todo_csv
+mix new todo_list
+cd todo_list
 ```
 
 ### Tests
@@ -75,7 +74,7 @@ To verify everything is working, run `mix test`. You can also delete the `test` 
 ### Automatic recompile
 When you are testing your modules inside `iex`, if you make a change in the code you need to use the function `recompile` to update the current `iex` instance with the latest version of the code or stop and restart the shell.
 
-We will use a tool called `remix` to automate that workflow.
+We will use a tool called `remix` <a href="#References"><sup>2</sup></a> to automate that workflow.
 
 **1)** Add `remix` to your `deps` inside the `mix.exs` file:
 
@@ -103,10 +102,99 @@ defp applications(_all), do: [:logger]
 
 **3)** Install `remix` typing `mix deps.get`
 
+## CSV files
+This type of file works as a spreadsheet. Each line of the file is like a row, and each "cell" is separated by a comma.
+
+Create two files inside the `lib` folder:
+
+```sh
+touch lib/{todos,todos_test}.csv
+```
+
+Let's add some data in both:
+
+```sh
+echo "1,Study Elixir,2017-10-01,done" > lib/todos.csv &&
+echo "1,Study Erlang,2018-01-01,todo" > lib/todos_test.csv
+```
+
+## Reading the CSV files
+We need an `init` function to bootstrap our app and read the content inside the `.csv` file.
+
+Let's write an assertion in our test file before implement the function.
+
+```elixir lib/todo_list_test.exs
+defmodule TodoListTest do
+  use ExUnit.Case
+  doctest TodoList
+
+  test "if the app will load the data from the csv file correctly" do
+    assert TodoList.init == "1,Study Erlang,2018-01-01,todo"
+  end
+end
+```
+
+To verify everything is working fine, add the following code in your `lib/todo_list.ex` file:
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+  @moduledoc """
+  Todo list application to work with .csv files through IEx.
+  """
+
+  def init do
+    "1,Study Erlang,2018-01-01,todo"
+  end
+end
+```
+
+Running `mix test` you should see this:
+
+```
+> mix test
+.
+
+Finished in 0.02 seconds
+1 test, 0 failures
+
+Randomized with seed 941386
+```
+
+If that's the case, we are good to start ~~breaking~~ making some cool stuff!
+
+### Module attributes and Environment variables
+To decide which file our code will use to read/write information, we will use a combination between Elixir's module attributes and Mix's environment variables (atoms).
+
+When we run our tests using `mix test`, `mix` sets its `env` value to `:test` (it's an atom). The same occur when we run our code with `iex -S mix`, but actual value we get with `Mix.env` is `:dev`. In that way we can dynamically opt to use `todos.csv` or `todos_test.csv`.
+
+We can define some module attributes in Elixir, that will work like a constant inside such module.
+
+Let's use these features to decide where to read the content, improving our `init` function.
+
+### Building the `Path`
+First of all, we will need a module attribute that holds a map so we can associate each key in this map with the `:dev` and `:test` atoms. Add the following code below the `TodoList` module definition.
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+
+  @path_env %{dev: "todos.csv", test: "todos_test.csv"}
+```
+
+Instead of keep our value as a string, e.g (`"lib/todos.csv"`), we will use the module `Path` to generate the path for us. In that way, the `join` function can handle OS' specificities for us.
+
+Add another module attribute to generate the final path:
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+
+  @path_env %{dev: "todos.csv", test: "todos_test.csv"}
+  @path Path.join(["lib", @path_env[Mix.env]])
+```
+
 ## References
-- [Elixir in Action](https://www.manning.com/books/elixir-in-action)
-- [remix](https://github.com/AgilionApps/remix)
-- [How to format text in terminal](https://askubuntu.com/questions/528928/how-to-do-underline-bold-italic-strikethrough-color-background-and-size-i)
-- []()
-- []()
-- []()
+1. [Elixir in Action](https://www.manning.com/books/elixir-in-action)
+1. [remix](https://github.com/AgilionApps/remix)
+1. [How to format text in terminal](https://askubuntu.com/questions/528928/how-to-do-underline-bold-italic-strikethrough-color-background-and-size-i)
+1. []()
+1. []()
+1. []()

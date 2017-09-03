@@ -191,6 +191,72 @@ defmodule TodoList do
   @path Path.join(["lib", @path_env[Mix.env]])
 ```
 
+### `File.stream!`
+In order to keep our functions as simple, specialized and reusable as possible, we will create a helper function to actually read the contents inside the `.csv` files. Because it is a helper function, we will define it as a private function with the `defp` construct. Your code will like this:
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+  @moduledoc """
+  Todo list application to work with .csv files through IEx.
+  """
+
+  @path_env %{dev: ["lib", "todos.csv"], test: ["lib", "todos_test.csv"]}
+  @path Path.join(@path_env[Mix.env])
+
+  def init do
+    @path
+    |> read_file!
+  end
+
+  defp read_file!(path) do
+    path
+    |> File.stream!
+    |> Enum.map(&String.replace(&1, "\n", ""))
+    |> to_string
+  end
+end
+```
+
+In the `init` function we are piping the `@path` to the `read_file!` function. There, we are using the `File.stream!` function to actually read the file, removing all *newline* characters (`\n`) and converting the content `to_string` to match the expected value in our tests.
+
+If you run `mix test` now, your test should still be passing :)
+
+### Data transformation
+Although we can keep moving forward with our todo app using strings/binaries, Elixir has other useful data structures that will facilitate our work if we convert the initial content retrieved from the `.csv` file to such types.
+
+Let's make a visual representation of the data we will deal with:
+
+```
+Todo List
++---------------------------------------------------+
+|                                                   |
+| last_id: 04                                       |
+|                                                   |
+| Todo                     Todo                     |
+| +----------------------+ +----------------------+ |
+| |                      | |                      | |
+| | id: 01               | | id: 01               | |
+| | task: "Study Elixir" | | task: "Study Elixir" | |
+| | date: 2017-10-01     | | date: 2017-10-01     | |
+| | state: todo          | | state: todo          | |
+| |                      | |                      | |
+| +----------------------+ +----------------------+ |
+|                                                   |
+| Todo                     Todo                     |
+| +----------------------+ +----------------------+ |
+| |                      | |                      | |
+| | id: 01               | | id: 01               | |
+| | task: "Study Elixir" | | task: "Study Elixir" | |
+| | date: 2017-10-01     | | date: 2017-10-01     | |
+| | state: todo          | | state: todo          | |
+| |                      | |                      | |
+| +----------------------+ +----------------------+ |
+|                                                   |
++---------------------------------------------------+
+```
+
+> Check the commit here: [b03097e](https://github.com/ericdouglas/ex_todo_csv/commit/b03097e05af392eb2e067b27251092c6b256597b)
+
 ## References
 1. [Elixir in Action](https://www.manning.com/books/elixir-in-action)
 1. [remix](https://github.com/AgilionApps/remix)

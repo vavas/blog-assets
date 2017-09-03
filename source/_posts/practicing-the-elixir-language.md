@@ -72,7 +72,7 @@ Let's create a file called `time_conversion_test.exs`.
 
 After this, put the following code in such file to have the basic setup in place:
 
-```elixir
+```elixir test/time_conversion_test.exs
 ExUnit.start()
 
 defmodule TimeConversionTest do
@@ -111,7 +111,7 @@ We will test every *hour* and *hour and half* to assure our program works in all
 >
 > If you prefer, you can use `TimeConversion.main()` without import `TimeConversion` as well.
 
-```elixir
+```elixir test/time_conversion_test.exs
 ExUnit.start()
 
 defmodule TimeConversionTest do
@@ -208,7 +208,7 @@ The mental model here is:
 
 Let's create our file `time_conversion.ex` and then configure the basic setup for such approach:
 
-```elixir
+```elixir lib/time_conversion.ex
 defmodule TimeConversion do
   def main(input) do
     input
@@ -236,7 +236,7 @@ The final solution:
 >
 > In the current version I removed `Kernel.+()` and used string interpolation `#{}` instead.
 
-```elixir
+```elixir lib/time_conversion.ex
 defmodule TimeConversion do
   def main(input) do
     input |> converter
@@ -283,7 +283,7 @@ Now you have a basic structure to work upon. We will change where mix run the te
 **1)** Go to the file `mix.exs` and add `test_paths: ["lib"]` in the `project` function.
 
 Example:
-```elixir
+```elixir mix.exs
 def project do
   [
     app: :kv,

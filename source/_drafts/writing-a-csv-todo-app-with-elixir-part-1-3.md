@@ -1,22 +1,25 @@
-title: Writing a CSV Todo App with Elixir
+title: Writing a CSV Todo App with Elixir - part 1/3
 date: 2017-09-03 06:35:21
 tags:
   - elixir
 ---
 
-In this article we will build a simple Todo application that can be used through the Interactive Elixir shell `IEx`. This app will use a `.csv` file to persist data.
+In this series we will build a simple Todo application that can be used through the Interactive Elixir shell `IEx`. This app will use a `.csv` file to persist data.
 
-Some interesting topics you will see here:
+We'll have 3 parts, that will cover:
+
+- Part 1: Project setup; reading and parsing files
+- Part 2: Creating, updating and deleting todos _(coming soon)_
+- Part 3: Displaying todos in a pretty way _(coming soon)_
+
+Some other topics you will see here:
 
 - Elixir's structs
 - Module attributes
 - Pattern Matching
 - Pipe operator
-- Write and read *Comma Separated Values* files (`.csv`)
-- Data transformation
 - Unit tests
 - Automatic project recompilation
-- Print formatted text to terminal (bold, italic, etc)
 
 **Obs**: The idea of this project came from the book *Elixir in Action* <a href="#References"><sup>1</sup></a> by Saša Jurić, more precisely in the Chapter 4. The code presented here though is very different of the created in the book and the specifications are also very different so even if you read the book you can still see some interesting stuff here.
 
@@ -326,6 +329,84 @@ end
 ```
 
 > Check the commit here: [c39db44](https://github.com/ericdouglas/ex_todo_csv/commit/c39db44b5c9c7da59bfbb88614fcc7a9fd8855c4)
+
+In our `read_file/1` function we now keep the data in its `stream` form so it will be lazy evaluated.
+
+In our `init/0` function we added another function in the pipe, `format_to_work/1`. Its responsibility is to break the comma separated values and put each of those values inside the right `struct`ure.
+
+Run your test to verify it is still passing. **Awesome**!
+
+## Interacting with the program using `iex`
+Now we have our first feature implemented, let's interact with our program. Type the following commands in your command line:
+
+```
+> iex -S mix
+
+iex(1)> TodoList.init
+
+%TodoList{last_id: 1,
+ todos: %{1 => %Todo{date: "2017-10-01", id: 1, status: "done",
+    task: "Study Elixir"}}}
+```
+
+## Writing `doctests`
+A very useful feature Elixir has built-in is the possibility to write tests inside our documentation that will run together with our other tests.
+
+Let's write a documentation for the `init/0` function with its respective test.
+
+```elixir lib/todo_list.ex
+@doc """
+Read the .csv file and return its content formatted
+
+## Examples
+
+    iex> TodoList.init
+    %TodoList{
+      last_id: 1,
+      todos: %{
+        1 => %Todo{
+          id: 1,
+          task: "Study Erlang",
+          date: "2018-01-01",
+          status: "todo"
+        }
+      }
+    }
+"""
+def init do
+  @path
+  |> read_file!
+  |> format_to_work
+end
+```
+
+> Check the commit here: [98af109](https://github.com/ericdouglas/ex_todo_csv/commit/98af109bbdbc21c7bd4559a1870eac267917e104)
+
+Run your tests again and you see `2 tests` in the message :)
+
+```
+> mix test
+..
+
+Finished in 0.04 seconds
+2 tests, 0 failures
+```
+
+## Summary
+This concludes our first article in the series about how to create a csv todo application with Elixir.
+
+We saw in this article:
+
+- How to create a new Elixir project
+- How to run our tests and put them alongside the code they will actually test
+- How to recompile our project automatically
+- How to read a file
+- How to use some Elixir's data structures
+- How to write doctests
+
+And that's it!
+
+> See you in the next article. Cheers!
 
  ## References
 1. [Elixir in Action](https://www.manning.com/books/elixir-in-action)

@@ -233,7 +233,7 @@ Although we can keep moving forward with our todo app using strings/binaries, El
 
 Let's see a diagram of the content we will deal with:
 
-![todo list with two todos](http://i.imgur.com/P6XKk0J.jpg)
+![todo list with two todos](http://i.imgur.com/Xyx7Vmf.jpg)
 
 We have a todo list that contains several todos and a reference for the last id created, in order to create the next todo with `last_id + 1` in our case.
 

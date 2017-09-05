@@ -221,46 +221,112 @@ In the `init` function we are piping the `@path` to the `read_file!` function. T
 
 If you run `mix test` now, your test should still be passing :)
 
-### Data transformation
-Although we can keep moving forward with our todo app using strings/binaries, Elixir has other useful data structures that will facilitate our work if we convert the initial content retrieved from the `.csv` file to such types.
-
-Let's make a visual representation of the data we will deal with:
-
-```
-Todo List
-+---------------------------------------------------+
-|                                                   |
-| last_id: 04                                       |
-|                                                   |
-| Todo                     Todo                     |
-| +----------------------+ +----------------------+ |
-| |                      | |                      | |
-| | id: 01               | | id: 01               | |
-| | task: "Study Elixir" | | task: "Study Elixir" | |
-| | date: 2017-10-01     | | date: 2017-10-01     | |
-| | state: todo          | | state: todo          | |
-| |                      | |                      | |
-| +----------------------+ +----------------------+ |
-|                                                   |
-| Todo                     Todo                     |
-| +----------------------+ +----------------------+ |
-| |                      | |                      | |
-| | id: 01               | | id: 01               | |
-| | task: "Study Elixir" | | task: "Study Elixir" | |
-| | date: 2017-10-01     | | date: 2017-10-01     | |
-| | state: todo          | | state: todo          | |
-| |                      | |                      | |
-| +----------------------+ +----------------------+ |
-|                                                   |
-+---------------------------------------------------+
-```
-
 > Check the commit here: [b03097e](https://github.com/ericdouglas/ex_todo_csv/commit/b03097e05af392eb2e067b27251092c6b256597b)
 
-## References
+### Data structures
+Although we can keep moving forward with our todo app using strings/binaries, Elixir has other useful data structures that will facilitate our work if we convert the initial content retrieved from the `.csv` file to such types.
+
+Let's make a visual representation of the content we will deal with:
+
+![todo list with two todos](http://i.imgur.com/P6XKk0J.jpg)
+
+We have a `todo_list` that contains several todos and a reference for the last id created, in order to create the next todo with `last_id + 1` in our case.
+
+The `todo` contains 4 properties that we already now from the specs.
+
+With such structure in mind, we can create a `struct` for the todo list and todos to enforce the proper usage of such elements.
+
+### Defining Structs
+We can have only one struct per module, so let's first define our `TodoList` struct:
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+  defstruct last_id: 0, todos: %{}
+```
+
+Now let's create another file called `todo.ex` to define the `Todo` struct:
+
+```elixir lib/todo.ex
+defmodule Todo do
+  defstruct [:id, :task, :date, :status]
+end
+```
+
+When all values you will define in the struct are `nil`, you can pass a *keyword list* for the `defstruct` function. It's the equivalent of:
+
+```elixir
+  defstruct id: nil, task: nil, date: nil, status: nil
+  # equivalent of defstruct [:id, :task, :date, :status]
+```
+
+### Data transformation
+Now we have the structs defined, let's refactor our program to read the `.csv` file but returns a `%TodoList{}` struct with the content inside. Before it though, let's refactor ours tests to assert we are parsing the file and transforming its data to the expected types:
+
+```elixir lib/todo_list_test.ex
+defmodule TodoListTest do
+  use ExUnit.Case
+  doctest TodoList
+
+  test "if the app will load and transform the data from the csv file correctly" do
+    assert TodoList.init == %TodoList{
+      last_id: 1,
+      todos: %{
+        1 => %Todo{
+          id: 1,
+          task: "Study Erlang",
+          date: "2018-01-01",
+          status: "todo"
+        }
+      }
+    }
+  end
+end
+```
+
+Pay attention to the structure we will convert the binaries we read to. Much more pleasant to work for sure.
+
+Let's refactor our program now to meet that expectation:
+
+```elixir lib/todo_list.ex
+defmodule TodoList do
+  @moduledoc """
+  Todo list application to work with .csv files through IEx.
+  """
+  defstruct last_id: 0, todos: %{}
+
+  @path_env %{dev: ["lib", "todos.csv"], test: ["lib", "todos_test.csv"]}
+  @path Path.join(@path_env[Mix.env])
+
+  def init do
+    @path
+    |> read_file!
+    |> format_to_work
+  end
+
+  defp read_file!(path) do
+    path
+    |> File.stream!
+    |> Stream.map(&String.replace(&1, "\n", ""))
+  end
+
+  defp format_to_work(input) do
+    format_todos = fn(el, acc) ->
+      [id, task, date, status] = String.split(el, ",")
+      id = String.to_integer(id)
+
+      Map.put(acc, id, %Todo{id: id, task: task, date: date, status: status})
+    end
+
+    todos   = Enum.reduce(input, %{}, format_todos)
+    last_id = Map.keys(todos) |> Enum.max
+
+    %TodoList{last_id: last_id, todos: todos}
+  end
+end
+```
+
+> Check the commit here: [c39db44](https://github.com/ericdouglas/ex_todo_csv/commit/c39db44b5c9c7da59bfbb88614fcc7a9fd8855c4)
+
+ ## References
 1. [Elixir in Action](https://www.manning.com/books/elixir-in-action)
 1. [remix](https://github.com/AgilionApps/remix)
-1. [How to format text in terminal](https://askubuntu.com/questions/528928/how-to-do-underline-bold-italic-strikethrough-color-background-and-size-i)
-1. []()
-1. []()
-1. []()

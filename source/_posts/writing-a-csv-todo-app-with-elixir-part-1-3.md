@@ -1,5 +1,5 @@
 title: Writing a CSV Todo App with Elixir - part 1/3
-date: 2017-09-03 06:35:21
+date: 2017-09-05 14:35:21
 tags:
   - elixir
 ---

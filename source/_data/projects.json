@@ -1,7 +1,12 @@
 [
   {
-     "name": "OSSU Computer Science",
-     "url": "https://github.com/open-source-society/computer-science",
-     "desc": "Free self-taught education in Computer Science."
+    "name": "OSSU Computer Science",
+    "url": "https://github.com/open-source-society/computer-science",
+    "desc": "Free self-taught education in Computer Science."
+  },
+  {
+    "name": "onli-reducer",
+    "url": "https://github.com/ericdouglas/onli-reducer",
+    "desc": "State management without boilerplate."
   }
 ]

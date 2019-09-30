@@ -1,6 +1,7 @@
 title: React Hacker News Client
 date: 2016-12-26 18:06:32
 tags:
+  - react
 ---
 
 ![Hacker news logo](http://i.imgur.com/YxCBqM6.png)

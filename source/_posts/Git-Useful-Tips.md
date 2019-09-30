@@ -1,6 +1,7 @@
 title: Git - Useful Tips
 date: 2016-04-01 08:29:23
-tags: git
+tags: 
+  - git
 ---
 
 ![git](http://i.imgur.com/QRZsSQI.jpg)
@@ -15,14 +16,18 @@ In front of the git commands, you'll see some aliases from the [oh-my-zsh cheats
 
 ## Table of Contents
 
-- [Basic Commands](#Basic-Commands)
-- [Commit Structure](#Commit-Structure)
-- [Managing the Staging Area](#Managing-the-Staging-Area)
-- [Stashes and Branches](#Stashes-and-Branches)
-- [Managing a Remote Repository](#Managing-a-Remote-Repository)
-- [More Useful Commands](#More-Useful-Commands)
-- [Git Workflow](#Git-Workflow)
-- [References](#References)
+- [- git](#git)
+- [Table of Contents](#table-of-contents)
+- [Basic Commands](#basic-commands)
+- [Commit Structure](#commit-structure)
+- [Managing the Staging Area](#managing-the-staging-area)
+- [Stashes and Branches](#stashes-and-branches)
+  - [Stash](#stash)
+  - [Branch](#branch)
+- [Managing a Remote Repository](#managing-a-remote-repository)
+- [More Useful Commands](#more-useful-commands)
+- [Git Workflow](#git-workflow)
+- [References](#references)
 
 ## Basic Commands
 

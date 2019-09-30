@@ -1,7 +1,7 @@
 title: Getting Started with Ember 2.0
 date: 2015-08-16 15:57:35
 tags:
-    ember
+  - ember
 ---
 
 ![Getting Started with Ember 2.0](http://i.imgur.com/cduds4J.jpg)
